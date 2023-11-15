@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask
+from flask import Flask, jsonify
 from . import db
 
 app = Flask(__name__)
@@ -22,9 +22,12 @@ db.init_app(app)
 def hello_world():
     return "Hello TdA"
 
-@app.route('/api')
+@app.route("/api")
 def api():
-    return '{"secret":"The cake is a lie"}'
+    secret = {
+        "secret": "The cake is a lie",
+    }
+    return jsonify(secret)
 
 if __name__ == '__main__':
     app.run()
