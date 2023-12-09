@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from . import db
 
 app = Flask(__name__)
@@ -19,8 +19,8 @@ db.init_app(app)
 
 
 @app.route('/')
-def hello_world():
-    return "Hello TdA"
+def frontend():
+    return app.send_static_file("index.html");
 
 @app.route("/api")
 def api():
