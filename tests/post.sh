@@ -1,1 +1,0 @@
-curl http://localhost:8080/api/lecturers -H "Content-Type: application/json" --json "$(cat tests/post.json)"

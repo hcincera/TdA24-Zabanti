@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS lecturers (
-  id TEXT NOT NULL PRIMARY KEY UNIQUE,
+  uuid TEXT NOT NULL PRIMARY KEY UNIQUE,
   title_before TEXT,
   first_name TEXT NOT NULL,
   middle_name TEXT,
@@ -12,21 +12,28 @@ CREATE TABLE IF NOT EXISTS lecturers (
   price_per_hour INTEGER
 );
 
+
+
 CREATE TABLE IF NOT EXISTS tags (
   name TEXT NOT NULL PRIMARY KEY UNIQUE,
-  id TEXT NOT NULL UNIQUE
+  uuid TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS lecturer_tags_map (
+  lecturer_uuid TEXT NOT NULL,
+  tag_uuid TEXT NOT NULL,
+  FOREIGN KEY (lecturer_uuid) REFERENCES lecturers (uuid),
+  FOREIGN KEY (tag_uuid) REFERENCES tags (uuid)
 );
 
 CREATE TABLE IF NOT EXISTS telnums (
-  num TEXT NOT NULL PRIMARY KEY UNIQUE,
-  id INTEGER UNIQUE
+  telnum TEXT NOT NULL UNIQUE,
+  lecturer_uuid TEXT NOT NULL,
+  FOREIGN KEY (lecturer_uuid) REFERENCES lecturers (uuid)
 );
 
 CREATE TABLE IF NOT EXISTS emails (
   email TEXT NOT NULL UNIQUE,
-  id INTEGER UNIQUE
+  lecturer_uuid TEXT NOT NULL,
+  FOREIGN KEY (lecturer_uuid) REFERENCES lecturers (uuid)
 );
-
-CREATE TABLE IF NOT EXISTS lecturer_tags (lecturer_id TEXT NOT NULL, tag_id TEXT NOT NULL);
-CREATE TABLE IF NOT EXISTS lecturer_telnums (lecturer_id TEXT NOT NULL, telnum_id INTEGER);
-CREATE TABLE IF NOT EXISTS lecturer_emails (lecturer_id TEXT NOT NULL, email_id INTEGER);

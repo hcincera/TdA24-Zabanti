@@ -4,6 +4,70 @@ import sqlite3, uuid
 
 lecturer_api = Blueprint('lecturer_api', __name__)
 
+def get_tag_uuids_from_lecturer(lecturer_uuid: str) -> list[str]:
+    db: sqlite3.Connection = get_db()
+    csr: sqlite3.Cursor = db.execute(f"SELECT * FROM lecturer_tags_map WHERE lecturer_uuid = '{lecturer_uuid}'")
+
+    tag_uuids = []
+
+    for row in csr.fetchall():
+        tag_uuids.append(row[1])
+
+    return tag_uuids
+
+def get_tag_from_id(tag_uuid: str) -> str:
+    db: sqlite3.Connection = get_db()
+    c: sqlite3.Cursor = db.execute(f"SELECT * FROM tags WHERE uuid = '{tag_uuid}'")
+    return c.fetchone()[0]
+
+def get_tags_from_lecturer(lecturer_uuid: str) -> list[object]:
+    tag_uuids = get_tag_uuids_from_lecturer(lecturer_uuid)
+    tags = []
+    for tuuid in tag_uuids:
+        tags.append({"name": get_tag_from_id(tuuid), "uuid": tuuid})
+    return tags
+
+
+def get_contact_from_lecturer(lecturer_uuid: str) -> object:
+    db: sqlite3.Connection = get_db()
+
+    contact = {}
+    telnums = []
+    emails = []
+
+    c = db.execute(f"SELECT * FROM telnums WHERE lecturer_uuid = '{lecturer_uuid}'")
+    for row in c.fetchall():
+        telnums.append(row[0])
+
+    c = db.execute(f"SELECT * FROM emails WHERE lecturer_uuid = '{lecturer_uuid}'")
+    for row in c.fetchall():
+        emails.append(row[0])
+
+    contact["telephone_numbers"] = telnums
+    contact["emails"] = emails
+
+    return contact
+
+
+def get_lecturers():
+    db: sqlite3.Connection = get_db()
+    csr: sqlite3.Cursor = db.execute("SELECT * FROM lecturers")
+
+    lecturers = []
+
+    lecturers_rows = csr.fetchall()
+    for lecturer_row in lecturers_rows:
+        lecturer = {}
+        for (i, key) in enumerate(lecturer_row.keys()):
+            lecturer[key] = lecturer_row[i]
+        lecturer["tags"] = get_tags_from_lecturer(lecturer["uuid"])
+        lecturer["contact"] = get_contact_from_lecturer(lecturer["uuid"])
+        lecturers.append(lecturer)
+
+    return lecturers
+
+
+
 class Lecturer:
     uuid: str
     title_before: str
@@ -23,46 +87,49 @@ class Lecturer:
     }
 
 @lecturer_api.get("/api/lecturers")
-def get_lecturers():
-    db: sqlite3.Connection = get_db()
-    csr: sqlite3.Cursor = db.execute("SELECT * FROM lecturers")
-    return jsonify(csr.fetchall())
+def lecturers_get():
+    return get_lecturers()
 
 @lecturer_api.post("/api/lecturers")
-def post_lecturers():
+def lecturers_post():
     db: sqlite3.Connection = get_db()
     j = request.json
-    id = str(uuid.uuid4())
+    lecturer_uuid = str(uuid.uuid4())
     tags = j["tags"]
     contact = j["contact"]
+
+    j["uuid"] = lecturer_uuid
     db.execute(
-        "INSERT INTO lecturers"
-        " (id, title_before, first_name, middle_name, last_name, "
-        "title_after, picture_url, location, claim, bio, price_per_hour) "
-        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-        (id, j["title_before"], j["first_name"], j["middle_name"],
-        j["last_name"], j["title_after"], j["picture_url"], j["location"],
-        j["claim"], j["bio"], j["price_per_hour"])
+        "INSERT INTO lecturers VALUES (:uuid, :title_before, :first_name, :middle_name, "
+        ":last_name, :title_after, :picture_url, :location, :claim, :bio, :price_per_hour)",
+        j
     )
     db.commit()
     for (i, tag) in enumerate(tags):
         t = tag
+        n = t["name"]
         c = db.execute(
-            "SELECT * FROM tags WHERE name=:name;", t
+            "SELECT * FROM tags WHERE name='" + n + "'"
         )
-        db.commit()
         r = c.fetchone()
         if r is None:
             t["uuid"] = str(uuid.uuid4())
-            c = db.execute("INSERT INTO tags (name, id) VALUES (?, ?)", [t["name"], t["uuid"]])
+            c = db.execute("INSERT INTO tags (name, uuid) VALUES (:name, :uuid)", t)
             db.commit()
         else:
-            t["uuid"] = r["id"]
-        tags[i] = t
-    j["uuid"] = id
-    j["tags"] = tags
-    return j
+            t["uuid"] = r["uuid"]
 
-@lecturer_api.route("/api/lecturers")
-def lectuer_api():
-    return "list of accounts"
+        c = db.execute("INSERT INTO lecturer_tags_map (lecturer_uuid, tag_uuid) VALUES (?, ?)", [lecturer_uuid, t["uuid"]])
+        db.commit()
+        tags[i] = t
+    db.commit()
+    j["tags"] = tags
+
+    for telnum in contact["telephone_numbers"]:
+        c = db.execute("INSERT INTO telnums (telnum, lecturer_uuid) VALUES (?, ?)", [telnum, lecturer_uuid])
+        db.commit()
+
+    for email in contact["emails"]:
+        c = db.execute("INSERT INTO emails (email, lecturer_uuid) VALUES (?, ?)", [email, lecturer_uuid])
+        db.commit()
+    return j
