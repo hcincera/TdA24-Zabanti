@@ -311,7 +311,7 @@ def test_advanced_delete(requestSession: requests.Session, url: str):
     full_url = urljoin(url, "/api/lecturers")
 
     # first push a lecturer to the API
-    lecturer = get_special_lecturer()
+    lecturer = get_random_lecturer()
     response = requestSession.post(full_url, json=lecturer)
     common_check(response, 200)
     searched_uuid = response.json()["uuid"]
