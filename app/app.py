@@ -20,8 +20,12 @@ except OSError:
 db.init_app(app)
 
 @app.route('/')
-def frontend():
+def frontend_index():
     return app.send_static_file("index.html");
+
+@app.route('/lecturer')
+def frontend_lecturer():
+    return app.send_static_file("lecturer.html");
 
 @app.route("/api")
 def api():
