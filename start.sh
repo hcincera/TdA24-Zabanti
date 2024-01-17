@@ -10,12 +10,12 @@ if [ "$1" == "dev" ]; then
 	docker build . -t tda-flask
 	docker run -it -p 8069:80 -v ${PWD}:/app tda-flask
 	exit
+fi
+
+if [ -f /.dockerenv ]; then
+	export PORT=80
 else
-	if [ -f /.dockerenv ]; then
-		export PORT=80
-	else
-		export PORT=8069
-	fi
+	export PORT=8069
 fi
 
 python3 -m flask --app app/app.py init-db
