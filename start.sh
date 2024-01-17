@@ -9,7 +9,7 @@ fi
 if [ -f /.dockerenv ]; then
     export PORT=80
 else
-    export PORT=8080
+    export PORT=8069
 fi
 
 python3 -m flask --app app/app.py init-db
