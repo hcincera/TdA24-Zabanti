@@ -2,7 +2,7 @@
     margin:0px;
     padding:0px;
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: Lalezar, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 body{
     background-color: #333;
@@ -15,17 +15,18 @@ body{
 }
 .card{
     width:325px;
-    background-color: #333;
+    background-color: #FECB2E;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 10px 4px 8px rgba(0,0,0,0.2);
     margin:20px;
 }
 .card img{
     width:100%;
     height: auto;
 }
-.card-content{
+.card-content {
+    text-align: center;
     padding:16px;
 }
 .card-content h3{
@@ -36,4 +37,28 @@ body{
     color:#666;
     font-size: 15px;
     line-height: 1.3;
+}
+
+.logo-wrapper {
+    width: fit-content;
+    float: left;
+}
+
+.logo {
+    position: relative;
+    margin-left: 30%;
+    margin-right: 30%;
+    margin-top: 30%;
+    margin-bottom: 30%;
+}
+
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    align-items: center;
+}
+
+#title {
+    margin: auto;
+    color: #FECB2E;
 }
