@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 @pytest.fixture(scope="session")
 def url() -> str:
     """Server URL to test"""
-    return "http://localhost:8080"
+    return "http://localhost:8069"
 
 @pytest.fixture(scope="session")
 def requestSession() -> requests.Session:

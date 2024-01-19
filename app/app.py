@@ -2,6 +2,7 @@ import os
 
 from flask import Flask, jsonify, render_template
 from . import db
+from . import errors
 
 from app.views.lecturer_api import lecturer_api
 
@@ -20,12 +21,20 @@ except OSError:
 db.init_app(app)
 
 @app.route('/')
-def frontend_index():
+def index():
     return app.send_static_file("index.html");
 
 @app.route('/lecturer')
 def frontend_lecturer():
     return app.send_static_file("lecturer.html");
+
+@app.route('/lecturer/<id>')
+def lecturer(id: str):
+    print(f"UUID: {id}")
+    lecturer = db.get_lecturer(id)
+    if lecturer is None:
+        return errors.NotFound()
+    return render_template("lecturer.html", l=lecturer)
 
 @app.route("/api")
 def api():

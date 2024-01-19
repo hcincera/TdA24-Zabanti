@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{id}}</title>
+    
+</head>
+<body>
+    <p>Name: {{l["first_name"] + " " + l["last_name"]}}</p>
+    <p>UUID: {{l["uuid"]}}</p>
+    <p>Location: {{l["location"]}}</p>
+    <p>Claim: {{l["claim"]}}</p>
+    {% for tag in l["tags"] %}
+        <p>Tag: {{tag}}</p>
+    {% endfor %}
+    <div class="contacts">
+        <p>Emails:</p>
+        <div style="margin-left: 50px;">
+        {% for email in l["contact"]["emails"] %}
+            <p>{{email}}</p>
+        {% endfor %}  
+        </div>
+        
+        <p>Tel. numbers:</p>
+        <div style="margin-left: 50px;">
+        {% for telnum in l["contact"]["telephone_numbers"] %}
+            <p>{{telnum}}</p>
+        {% endfor %} 
+        </div>
+        
+    </div>
+</body>
+</html>
