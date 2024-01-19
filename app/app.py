@@ -54,6 +54,21 @@ def get_fullname(lecturer):
 
 app.jinja_env.globals.update(get_fullname=get_fullname)
 
+def get_redirect_code(lecturer):
+    return "window.location = '../lecturer/" + lecturer["uuid"] + "'"
+
+app.jinja_env.globals.update(get_redirect_code=get_redirect_code)
+
+def get_tags(lecturer):
+    s = ""
+    for (i, tag) in enumerate(lecturer["tags"]):
+        s += tag["name"]
+        if i + 1 < len(lecturer["tags"]):
+            s += ", "
+    return s
+
+app.jinja_env.globals.update(get_tags=get_tags)
+
 @app.route('/lecturer/<id>')
 def lecturer(id: str):
     print(f"UUID: {id}")

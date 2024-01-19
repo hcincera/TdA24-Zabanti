@@ -17,16 +17,24 @@
         <h1 id="title">Dynamický katalog lektorů</h1>
     </div>
 
+    <div id=""></div>
+
 
     <div class="card-container">
         {% for lecturer in lecturers %}
-            <div class="card">
+            <div class="card" onclick="{{get_redirect_code(lecturer)}}">
                 <img src="{{lecturer['picture_url'] or '../static/default-picture.svg'}}">
                 <div class="card-content">
                     <h3>{{get_fullname(lecturer)}}</h3>
-                    <p>{{taglist}}</p>
+                    <p style="color: #333333;">{{get_tags(lecturer)}}</p>
                 </div>
             </div>
         {% endfor %}
+    </div>
 </body>
+<script>
+    function hide_invalid() {
+
+    }
+</script>
 </html>
