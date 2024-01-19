@@ -20,14 +20,6 @@ except OSError:
 
 db.init_app(app)
 
-@app.route('/s')
-def sindex():
-    return app.send_static_file("index.html");
-
-@app.route('/lecturer')
-def frontend_lecturer():
-    return app.send_static_file("lecturer.html");
-
 @app.route('/')
 def index():
     return render_template("index.html", lecturers=db.get_lecturers())
@@ -45,8 +37,8 @@ def get_fullname(lecturer):
     
     last_name = l["last_name"]
 
-    title_after = " " + l["title_after"]
-    if title_after == " ":
+    title_after = ", " + l["title_after"]
+    if title_after == ", ":
         title_after = ""
     
     fullname = title_before + first_name + middle_name + last_name + title_after
@@ -69,13 +61,33 @@ def get_tags(lecturer):
 
 app.jinja_env.globals.update(get_tags=get_tags)
 
+def get_emails(lecturer):
+    s = ""
+    for (i, email) in enumerate(lecturer["contact"]["emails"]):
+        s += email
+        if i + 1 < len(lecturer["contact"]["emails"]):
+            s += ", "
+    return s
+
+app.jinja_env.globals.update(get_emails=get_emails)
+
+def get_telnums(lecturer):
+    s = ""
+    for (i, telnum) in enumerate(lecturer["contact"]["telephone_numbers"]):
+        s += telnum
+        if i + 1 < len(lecturer["contact"]["telephone_numbers"]):
+            s += ", "
+    return s
+
+app.jinja_env.globals.update(get_telnums=get_telnums)
+
 @app.route('/lecturer/<id>')
 def lecturer(id: str):
     print(f"UUID: {id}")
     lecturer = db.get_lecturer(id)
     if lecturer is None:
         return errors.NotFound()
-    return render_template("lecturer.html", l=lecturer)
+    return render_template("lecturer.html", lecturer=lecturer)
 
 @app.route("/api")
 def api():

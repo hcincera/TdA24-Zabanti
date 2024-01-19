@@ -3,32 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{get_fullname(l)}}</title>
-    
+    <link rel="stylesheet" href="../static/styly.css"/>
+    <title>Žabantí TdA</title>
 </head>
 <body>
-    <p>Name: {{l["first_name"] + " " + l["last_name"]}}</p>
-    <p>UUID: {{l["uuid"]}}</p>
-    <p>Location: {{l["location"]}}</p>
-    <p>Claim: {{l["claim"]}}</p>
-    {% for tag in l["tags"] %}
-        <p>Tag: {{tag}}</p>
-    {% endfor %}
-    <div class="contacts">
-        <p>Emails:</p>
-        <div style="margin-left: 50px;">
-        {% for email in l["contact"]["emails"] %}
-            <p>{{email}}</p>
-        {% endfor %}  
+    <div class="navbar">
+        <div class="logo-wrapper">
+            <img class="logo" src="../static/TeacherDigitalAgency_LOGO_colour-white.svg" width="100"> 
         </div>
-        
-        <p>Tel. numbers:</p>
-        <div style="margin-left: 50px;">
-        {% for telnum in l["contact"]["telephone_numbers"] %}
-            <p>{{telnum}}</p>
-        {% endfor %} 
-        </div>
-        
+        <h1 id="title">Dynamický katalog lektorů</h1>
+        <button onclick="window.location = '/'">[←] Home</button>
     </div>
-</body>
+    <section class="about">
+        <div class="main">
+            <img src="{{lecturer['picture_url'] or '../static/default-picture.svg'}}">
+            <div class="about-text">
+                <h1>{{get_fullname(lecturer)}}</h1>
+                <h5>{{lecturer["claim"]}}</h5>
+                <h5>{{lecturer["location"]}}</h5>
+                <p>{{lecturer["bio"] | safe}}</p>
+                <p>{{get_tags(lecturer)}}</p>
+                <h5>{{lecturer["price_per_hour"]}} Kč/hodinu</h5>
+                <div class="contacts">
+                    <p>Email: {{get_emails(lecturer)}}</p>
+                    <p>Telefon: {{get_telnums(lecturer)}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    </section>
+<body>
 </html>
