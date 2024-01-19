@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css"/>
+    <title>Žabantí TdA</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo-wrapper">
+            <img class="logo" src="../static/TeacherDigitalAgency_LOGO_colour-white.svg" width="100"> 
+        </div>
+        <h1 id="title">Dynamický katalog lektorů</h1>
+    </div>
+
+
+    <div class="card-container">
+        {% for lecturer in lecturers %}
+            <div class="card">
+                <img src="{{lecturer['picture_url'] or '../static/default-picture.svg'}}">
+                <div class="card-content">
+                    <h3>{{get_fullname(lecturer)}}</h3>
+                    <p>{{taglist}}</p>
+                </div>
+            </div>
+        {% endfor %}
+</body>
+</html>

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
 *{
     margin:0px;
     padding:0px;
@@ -30,7 +31,7 @@ body{
     padding:16px;
 }
 .card-content h3{
-    font-size: 28px;
+    font-size: 20px;
     margin-bottom: 8px;
 }
 .card-content p{

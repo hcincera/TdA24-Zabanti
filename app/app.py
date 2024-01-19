@@ -20,13 +20,39 @@ except OSError:
 
 db.init_app(app)
 
-@app.route('/')
-def index():
+@app.route('/s')
+def sindex():
     return app.send_static_file("index.html");
 
 @app.route('/lecturer')
 def frontend_lecturer():
     return app.send_static_file("lecturer.html");
+
+@app.route('/')
+def index():
+    return render_template("index.html", lecturers=db.get_lecturers())
+
+def get_fullname(lecturer):
+    l = db.validate_lecturer_json(lecturer)
+    title_before = l["title_before"] + " "
+    if title_before == " ":
+        title_before = ""
+    first_name = l["first_name"] + " "
+
+    middle_name = l["middle_name"] + " "
+    if middle_name == " ":
+        middle_name = ""
+    
+    last_name = l["last_name"]
+
+    title_after = " " + l["title_after"]
+    if title_after == " ":
+        title_after = ""
+    
+    fullname = title_before + first_name + middle_name + last_name + title_after
+    return fullname
+
+app.jinja_env.globals.update(get_fullname=get_fullname)
 
 @app.route('/lecturer/<id>')
 def lecturer(id: str):

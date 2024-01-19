@@ -11,7 +11,7 @@ def get_random_lecturer():
     l["middle_name"] = random.choice(["Jiří", "Jan", "Petr", "Josef", "Pavel", "Martin", "Tomáš", "Jaroslav", None])
     l["last_name"] = random.choice(["Novák", "Svoboda", "Novotný", "Dvořák", "Černý", "Procházka", "Kučera", "Němec"])
     l["title_after"] = random.choice(["Ph.D.", "Dis.", None])
-    l["picture_url"] = random.choice([None, "http://picture.example/" + str(uuid.uuid4())])
+    l["picture_url"] = random.choice([None, "../static/jpg/p" + str(random.randint(1,5)) + ".jpg"])
     l["location"] = random.choice([None, "Praha", "Brno", "Plzeň", "Ostrava", "Pardubice", "Liberec", "Zlín"])
     l["claim"] = random.choice([None, lorem.sentence()])
     l["bio"] = random.choice([None, "<b>"+lorem.sentence()+"</b>"])
