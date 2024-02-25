@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, send_from_directory
 from . import db
 from . import errors
 
@@ -22,7 +22,11 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html", lecturers=db.get_lecturers())
+    return render_template("index.html", lecturers=db.get_lecturers(), title="TdA Žabanti")
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, "static"),"favicon.ico", mimetype="image/vnd.microsoft.icon")
 
 def get_fullname(lecturer):
     l = db.validate_lecturer_json(lecturer)
@@ -96,6 +100,9 @@ def api():
     }
     return jsonify(secret)
 
+@app.route('/profile')
+def profile():
+    return render_template("profile.html", title="Your Profile")
 
 app.register_blueprint(lecturer_api)
 

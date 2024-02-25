@@ -19,7 +19,11 @@ print(f"DEBUG: took {duration} ms")
 
 @lecturer_api.get("/api/lecturers")
 def lecturers_get():
-    return db.get_lecturers()
+    lecturers = db.get_lecturers()
+    for i, lecturer in enumerate(lecturers):
+        l = lecturer
+        lecturers[i] = l
+    return lecturers
 
 @lecturer_api.post("/api/lecturers")
 def lecturers_post():

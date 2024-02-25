@@ -59,24 +59,26 @@ def validate_lecturer_json(json):
     uuid = json.get("uuid")
     if uuid is None:
         return None
-    title_before = json.get("title_before") or ""
+    title_before = json.get("title_before")
 
     first_name = json.get("first_name")
     if first_name is None:
         return None
 
-    middle_name = json.get("middle_name") or ""
+    middle_name = json.get("middle_name")
 
-    last_name = json.get("last_name") or ""
+    last_name = json.get("last_name")
     if last_name is None:
         return None
 
-    title_after = json.get("title_after") or ""
-    picture_url = json.get("picture_url") or "../static/default-person.png"
-    location = json.get("location") or ""
-    claim = json.get("claim") or ""
-    bio = json.get("bio") or ""
-    price_per_hour = json.get("price_per_hour") or -1
+    title_after = json.get("title_after")
+    picture_url = json.get("picture_url")
+    location = json.get("location")
+    claim = json.get("claim")
+    bio = json.get("bio")
+    price_per_hour = json.get("price_per_hour")
+    if price_per_hour is None:
+        return None
 
     contact = json.get("contact")
     if contact is None:
@@ -95,7 +97,7 @@ def validate_lecturer_json(json):
         name = tag.get("name")
         if name is None:
             return None
-        tags[i]["uuid"] = tag.get("uuid") or ""
+        tags[i]["uuid"] = tag.get("uuid")
 
     return {
         "uuid": uuid,

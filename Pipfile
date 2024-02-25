@@ -8,6 +8,10 @@ flask = "*"
 colorama = "*"
 
 [dev-packages]
+pytest = "*"
+lorem = "*"
+uuid = "*"
+requests = "*"
 
 [requires]
 python_version = "3.10"
