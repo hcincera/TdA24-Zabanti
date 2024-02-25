@@ -19,10 +19,9 @@ flask --app app\app.py init-db
 flask --app app\app.py run
 ````
 
-##### Linux / macOS
-###### start.sh
+Linux / macOS
 
-Pro zjednodušení práce používáme skript start.sh
+Pro zjednodušení práce používáme skript `start.sh`
 
 standardní spuštění:
 ````
@@ -55,7 +54,7 @@ naplnění databáze běžící aplikace:
 
 vyprázdnění databáze běžící aplikace:
 ````
-./start.sh fill_db
+./start.sh clean_db
 ````
 
 spuštění za použití systémových balíčků:
