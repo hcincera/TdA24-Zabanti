@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    font-family: "Open Sans";
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: Lalezar;
+}
+
+.check-strike {
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + .check-strike {
+    text-decoration: line-through;
+    color: darkred;
+    text-decoration-thickness: 5px;
+}
+
+input[type="checkbox"]:not(:checked) + .check-strike {
+    color: green;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

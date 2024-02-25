@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/main.css"/>
+    <title>Katalog lektorů</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+        <a class="navbar-brand mx-4" href="/" title="Domů">
+            <img src="TeacherDigitalAgency_LOGO_colour-black.svg" width="100px" height="100px">
+        </a>
+        
+        <h1 class="navbar-header" style="padding-top: 10px;">Katalog lektorů</h1>
+        <input class="mx-4" type="image" src="user-svgrepo-com.svg" width="60px" height="60px" style="border: 1px solid #000;" title="Přihlásit se">
+    </nav>
+
+    <div class="d-flex justify-content-center my-3">
+        <form class="w-50">
+        <div class="form-row">
+            <div class="input-group">
+                <input class="form-control mr-sm-2" type="search" placeholder="hledat lektora..." aria-label="Search" title="Hledat">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><i class="fa fa-filter" aria-label="Filter" title="Filtrovat možnosti"></i></button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search" aria-hidden="true" title="Vyhledat"></i></button>
+            </div>
+        </div>
+        </form>
+    </div>
+
+    <div class="d-flex justify-content-center my-3">
+        <div class="w-50 p-2" style="border: 1px dashed black; min-height: 200px; border-radius: 8px;">
+            <div class="row-cols-auto">
+                <b class="d-inline-grid">Kč/hod:</b>
+                <p class="d-inline-grid">od</p>
+                <input class="col-1" type="number" placeholder="0">
+                <p class="d-inline-grid">do</p>
+                <input class="col-1" type="number" placeholder="300">
+            </div>
+            
+            <div class="row-cols-auto">
+                <b class="d-inline-grid">Lokality:</b>
+                <div class="d-inline-block input-group">
+                    <label>
+                        <input type="checkbox" style="display: none;">
+                        <span class="check-strike noselect border" style="border-radius: 4px;">Brno</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" style="display: none;">
+                        <span class="check-strike noselect border" style="border-radius: 4px;">Praha</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="row-cols-auto">
+                <b class="d-inline-grid">Tagy:</b>
+                <div class="d-inline-block input-group">
+                    <label>
+                        <input type="checkbox" style="display: none;">
+                        <span class="check-strike noselect border" style="border-radius: 4px;">Marketing</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" style="display: none;">
+                        <span class="check-strike noselect border" style="border-radius: 4px;">Sales</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" style="display: none;">
+                        <span class="check-strike noselect border" style="border-radius: 4px;">Networking</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+</body>
+</html>
