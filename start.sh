@@ -14,8 +14,9 @@ fi
 
 if [ -f /.dockerenv ] ; then
 	export PORT=80
-	pipenv run ./start.sh --use-system-packages
-	exit
+	python3 -m flask --app app/app.py init-db
+	python3 -m flask --app app/app.py run --host=0.0.0.0 --port=$PORT
+	
 else
 	export PORT=8069
 fi
