@@ -2,7 +2,9 @@
 import random, lorem, uuid, requests
 from urllib.parse import urljoin
 
-server_url = "http://localhost:8069"
+#server_url = "http://localhost:8069"
+server_url = "http://59a8aca7ad173c39.app.tourdeapp.cz"
+
 
 def get_random_lecturer():
     l = {}
