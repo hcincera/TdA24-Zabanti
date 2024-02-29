@@ -43,32 +43,24 @@
             <div class="row-cols-auto">
                 <b class="d-inline-grid">Lokality:</b>
                 <div id="wanted_locations" class="d-inline-block input-group">
+		    {% for location in all_locations %}
                     <label class="location-toggle">
                         <input type="checkbox" style="display: none;">
-                        <span class="check-strike noselect border" style="border-radius: 4px;">Brno</span>
+			<span class="check-strike noselect border" style="border-radius: 4px;">{{location}}</span>
                     </label>
-                    <label class="location-toggle">
-                        <input type="checkbox" style="display: none;">
-                        <span class="check-strike noselect border" style="border-radius: 4px;">Praha</span>
-                    </label>
+		    {% endfor %}
                 </div>
             </div>
             
             <div class="row-cols-auto">
                 <b class="d-inline-grid">Tagy:</b>
                 <div id="wanted_tags" class="d-inline-block input-group">
+		    {% for tag in all_tags %}
                     <label class="tag-toggle">
                         <input type="checkbox" style="display: none;">
-                        <span class="check-grey noselect border" style="border-radius: 4px;">Marketing</span>
+			<span class="check-grey noselect border" style="border-radius: 4px;">{{tag}}</span>
                     </label>
-                    <label class="tag-toggle">
-                        <input type="checkbox" style="display: none;">
-                        <span class="check-grey noselect border" style="border-radius: 4px;">Sales</span>
-                    </label>
-                    <label class="tag-toggle">
-                        <input type="checkbox" style="display: none;">
-                        <span class="check-grey noselect border" style="border-radius: 4px;">Networking</span>
-                    </label>
+		    {% endfor %}
                 </div>
             </div>
         </div>
@@ -101,7 +93,7 @@
 	    {% if (lecturer["bio"] or "") != "" %}
 	    <span class="d-block w-100 border lecturer-bio" style="border-radius: 2px;">{{lecturer["bio"]|safe}}</span>            
 	    {% endif %}
-            <div class="row-cols-auto my-1">
+            <div class="lecturer-tags row-cols-auto my-1">
                 <b class="d-inline-grid">Tagy:</b>
                 <div class="d-inline-block">
 		    {% for tag in lecturer["tags"] %}

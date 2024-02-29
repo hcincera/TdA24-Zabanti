@@ -17,10 +17,6 @@ function on_filter_btn_clicked() {
 }
 
 function on_search() {
-    console.log("Query: ", searchbar.value)
-    console.log("Min: ", parseInt(pph_min.value))
-    console.log("Max: ", parseInt(pph_max.value))
-
     for (let lecturer of lecturers.children) {
         name = lecturer.children[0].children[1].children[0].children[0].innerHTML
 	lecturer_pph = {"innerHtml": "-1"}
@@ -32,7 +28,6 @@ function on_search() {
 	}
 	pph = parseInt(lecturer_pph.innerHTML)
 
-	console.log("Lecturer PPH: ", pph)
         nameMatch = name.toLowerCase().includes(searchbar.value.toLowerCase())
 	let min_pph = -1
 	let max_pph = -1
@@ -73,8 +68,19 @@ function on_search() {
 	    locationMatch = false
 	}
 
+	for (let c of lecturer.children) {
+	   if (c.className.includes("lecturer-tags")) {
+	   	lecturer_tags_div = c
+	   }
+	}
+
+	let checkSubset = (parentArray, subsetArray) => {
+            return subsetArray.every((el) => {
+                return parentArray.includes(el)
+    	    })
+	}
 	lecturer_tags = []
-	for (let tag_span of lecturer.children[2].children[1].children) {
+	for (let tag_span of lecturer_tags_div.children[1].children) {
 	    lecturer_tags = lecturer_tags.concat([tag_span.innerText])
 	}
 
@@ -87,7 +93,7 @@ function on_search() {
 	    }
 	}
 	
-	tagMatch = lecturer_tags.includes(required_tags) || required_tags.length == 0
+	tagMatch = checkSubset(lecturer_tags, required_tags) || required_tags.length == 0
 
 	if (nameMatch && priceMatch && locationMatch && tagMatch) {
 	   lecturer.style.removeProperty("display")

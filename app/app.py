@@ -22,7 +22,7 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("catalogue.html", lecturers=db.get_lecturers(), title="TdA Žabanti")
+    return render_template("catalogue.html", lecturers=db.get_lecturers(), title="TdA Žabanti", all_tags=db.get_all_tags(), all_locations=db.get_all_locations())
 
 @app.route('/favicon.ico')
 def favicon():

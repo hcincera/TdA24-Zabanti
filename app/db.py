@@ -281,3 +281,26 @@ def get_lecturers_with_tag(uuid, tag):
     cur = con.cursor()
     res = cur.execute("SELECT * FROM lecturer_tags_map WHERE uuid=(?)", [tag["uuid"]])
     return [l[0] for l in res.fetchall()]
+
+def get_all_tags():
+    ls = get_lecturers()
+    tags = {}
+    for l in ls:
+        for t in (l.get("tags") or []):
+            tags[t["name"]] = True
+    ts = []
+    for t in tags.keys():
+        ts.append(t)
+    return ts
+
+def get_all_locations():
+    ls = get_lecturers()
+    locs = {}
+    for l in ls:
+        loc = l.get("location")
+        if not loc is None:
+            locs[loc] = True
+    los = []
+    for s in locs.keys():
+        los.append(s)
+    return los
