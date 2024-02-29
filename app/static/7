@@ -80,16 +80,12 @@
 	        <img class="d-inline-grid" src="user-svgrepo-com.svg" width="200px" height="200px">
 	        <div class="w-100" style="height: 100%;">
 	            <h3 class="w-100 text-center" style="margin-bottom: -20px;">Jméno Příjmení</h3>
-		    <hr style="height: 1px; width: 100%; margin-bottom: 5px;">
-		    <span>Claim_p1 / claim_p2 / claim_p3</span>
-		    <div class="d-flex my-1"><i class="fa fa-map-marker mx-1" style="font-size: 25px;"></i><span>Brno</span></div>
-		    <div class="d-flex my-1"><i class="fa fa-money mx-1" style="font-size: 25px;"></i><span>150 Kč/hod</span></div>
-		    <div class="d-flex my-1"><i class="fa fa-envelope mx-1" style="font-size: 25px;"></i><span>email@example.cz</span></div>
-		    <div class="d-flex my-1"><i class="fa fa-phone mx-1" style="font-size: 25px;"></i><span>+420 665773888</span></div>
+		    <hr style="height: 1px; width: 100%;">
+		    <span><i class="fa fa-map-marker mx-1" style="height: 20px;"></i>Brno</span>
 	        </div>
 	    </div>
-            <span class="d-block w-100 border" style="border-radius: 2px;">bio</span>            
-            <div class="row-cols-auto my-1">
+            
+            <div class="row-cols-auto">
                 <b class="d-inline-grid">Tagy:</b>
                 <div class="d-inline-block">
                     <span class="border" style="border-radius: 4px;">Marketing</span>
