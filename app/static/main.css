@@ -31,3 +31,15 @@ input[type="checkbox"]:not(:checked) + .check-strike {
     -ms-user-select: none;
     user-select: none;
 }
+.check-grey {
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked + .check-grey {
+    color: orange;
+    font-weight: bold;
+}
+
+input[type="checkbox"]:not(:checked) + .check-grey {
+    color: lightgrey;
+}

@@ -22,7 +22,7 @@ db.init_app(app)
 
 @app.route('/')
 def index():
-    return render_template("index.html", lecturers=db.get_lecturers(), title="TdA Žabanti")
+    return render_template("catalogue.html", lecturers=db.get_lecturers(), title="TdA Žabanti")
 
 @app.route('/favicon.ico')
 def favicon():
@@ -30,18 +30,18 @@ def favicon():
 
 def get_fullname(lecturer):
     l = db.validate_lecturer_json(lecturer)
-    title_before = l["title_before"] + " "
+    title_before = (l["title_before"] or "") + " "
     if title_before == " ":
         title_before = ""
     first_name = l["first_name"] + " "
 
-    middle_name = l["middle_name"] + " "
+    middle_name = (l["middle_name"] or "") + " "
     if middle_name == " ":
         middle_name = ""
     
     last_name = l["last_name"]
 
-    title_after = ", " + l["title_after"]
+    title_after = ", " + (l["title_after"] or "")
     if title_after == ", ":
         title_after = ""
     

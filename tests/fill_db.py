@@ -19,7 +19,7 @@ def get_random_lecturer():
     l["price_per_hour"] = random.randint(0, 1000)
     l["contact"] = {
         "telephone_numbers" : [(lambda: "+420 " + str(random.randint(111_111_111, 999_999_999)))() for x in range(random.randint(1,5))],
-        "emails" : [(lambda: str(uuid.uuid4()) + "@example.com")() for x in range(random.randint(1,5))]
+        "emails" : [(lambda: str(uuid.uuid4())[:6] + "@example.com")() for x in range(random.randint(1,5))]
     }
     return l
 
